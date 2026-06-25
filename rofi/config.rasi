@@ -1,0 +1,10 @@
+
+//@theme "/nix/store/p0vsiba561501nsbcrk314fw4zhbqz7c-rofi-2.0.0/share/rofi/themes/fancy.rasi"
+
+//@theme "/nix/store/p0vsiba561501nsbcrk314fw4zhbqz7c-rofi-2.0.0/share/rofi/themes/sidebar-v2.rasi"
+
+@theme "/nix/store/p0vsiba561501nsbcrk314fw4zhbqz7c-rofi-2.0.0/share/rofi/themes/Arc-Dark.rasi"
+
+configuration {
+    terminal: "kitty";
+}

@@ -1,0 +1,83 @@
+* {
+  padding: 0;
+  margin: 0;
+  /* font-family: JetBrainsMono Nerd Font; */
+  color:#ffffff;
+}
+
+window#waybar {
+  background-color: transparent;
+}
+
+#custom-arch {
+  text-shadow: 1px 1px 2px black;
+  font-size: 20px;
+  margin-left: 10px;
+}
+menu {
+  background-color: rgba(33, 33, 33, 0.8);
+  opacity: 0.5;
+  border-radius: 3px;
+}
+
+menuitem {
+  border-radius: 3px;
+  color:#fff;
+}
+
+#custom-updates {
+}
+
+#disk {
+  color: white;
+}
+
+#workspaces button {
+}
+
+#workspaces button label {
+}
+
+
+#clock {
+  margin-right: 10px;
+}
+
+#cpu,
+#memory {
+}
+
+#cpu {
+}
+
+#memory {
+}
+
+#pulseaudio,
+#backlight {
+}
+
+#backlight {
+}
+
+#pulseaudio {
+}
+
+#bluetooth {
+}
+
+#network {
+}
+
+#battery {
+}
+
+#custom-wallpaper {
+  font-size: 14px;
+}
+
+#custom-download {
+}
+
+#custom-power {
+}

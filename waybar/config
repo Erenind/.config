@@ -1,0 +1,201 @@
+{
+  "layer": "top",
+  "height": 32,
+  "margin-top": 0,
+  "margin-left": 0,
+  "margin-bottom": 0,
+  "margin-right": 0,
+  "spacing": 0,
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces",
+    "custom/separator",
+    "tray"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "backlight",
+    "pulseaudio",
+    "custom/separator",
+    "network",
+    "battery",
+    "custom/separator",
+    "custom/separator",
+    "custom/hiddenWaybar",
+    "custom/bingwallpaper",
+    "custom/wallpaper",
+    "custom/download",
+    "custom/power"
+  ],
+  "custom/launcher": {
+    "format": "  ",
+    "on-click": "rofi -show drun -show-icons",
+    "tooltip": false
+  },
+  "custom/updates": {
+    "format": " {}",
+    "escape": true,
+    "on-click": "kitty --hold --class=floating_terminal fish -c 'startproxy && sudo pacman -Syu'",
+    "return-type": "json",
+    "exec": "~/33/code/sh/updates.sh",
+    "restart-interval": 60,
+    "tooltip": true
+  },
+  "disk": {
+    "interval": 1,
+    "format": "<span color=\"#68b0d6\"></span> {percentage_used}%",
+    "tooltip-format": "Totle: {total}\nUsed: {used} {percentage_used}%\nFree: {free} {percentage_free}%",
+    "on-click": "nautilus /home/kyee/",
+    "on-click-right": "nautilus /"
+  },
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "active-only": false,
+    "on-click": "activate",
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10"
+    }
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10,
+    "exclude": [
+      "v2rayN"
+    ]
+  },
+  "clock": {
+    "format": "<b>{:%I:%M}</b>",
+    "tooltip-format": "<big>{:%d %b %a}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "cpu": {
+    "interval": 10,
+    "format": " {usage}%",
+    "max-length": 10,
+    "on-click": "htop"
+  },
+  "memory": {
+    "interval": 30,
+    "format": " {}%",
+    "format-alt": " {used:0.1f}G",
+    "max-length": 10,
+    "on-click-right": "htop"
+  },
+  "backlight": {
+    "device": "amdgpu_bl1",
+    "format": "{icon} <b>{percent}</b> ",
+    "on-scroll-up": "brightnessctl s 5%+",
+    "on-scroll-down": "brightnessctl s 5%-",
+    "tooltip": false,
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pulseaudio": {
+    "format": "{icon} <b>{volume}</b>",
+    "format-bluetooth": " {volume}",
+    "format-bluetooth-muted": " ",
+    "tooltip": false,
+    "format-muted": " ",
+    "format-icons": {
+      "default": [
+        "",
+        "󰕾",
+        ""
+      ]
+    },
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol"
+  },
+  "bluetooth": {
+    "format": "󰂯{device_alias} ",
+    "format-on": "",
+    "format-off": "󰂲",
+    "format-no-controller": "",
+    "format-disabled": "󰂲",
+    "on-click": "blueman-manager",
+    "on-click-right": "kitty --hold --class=floating_terminal fish -c 'expect -c 'spawn bluetoothctl; send devices\r; interact''",
+    "tooltip-format": "{num_connections} connected\n名称\t{device_alias}\n电量\t{device_battery_percentage}%"
+  },
+  "network": {
+    "format-wifi": " ",
+    "on-click": "kitty --hold --class=floating_terminal fish -c 'nmcli device wifi list'",
+    "format-ethernet": " wired",
+    "tooltip-format": "{essid} {bandwidthTotalBits}",
+    "format-disconnected": "󱛅 "
+  },
+  "battery": {
+    "bat": "BAT0",
+    "interval": 10,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄{capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "max-length": 25,
+    "tooltip": false
+  },
+  "custom/hiddenWaybar": {
+    "format": " ",
+    "tooltip-format": "hidden waybar",
+    "on-click": "killall -SIGUSR1 waybar"
+  },
+  "custom/changeCaps": {
+    "format": "󰌎 ",
+    "on-click": "hyprctl keyword input:kb_options caps:escape && notify-send 'Caps Lock is now Esc'",
+    "tooltip-format": "change CapsLock to Esc"
+  },
+  "custom/bingwallpaper": {
+    "format": "󰂤 ",
+    "on-click": "sh ~/33/code/sh/getBingWallpaper-waybar.sh"
+  },
+  "custom/wallpaper": {
+    "format": " ",
+    "on-click": "waypaper --random",
+    "on-click-right": "waypaper",
+    "tooltip": false
+  },
+  "custom/download": {
+    "format": "  ",
+    "on-click": "python ~/33/wallpaper/FetchWallpaperAndChange.py",
+    "on-click-right": "sh ~/33/code/sh/RemoveCurrentWallpaper.sh",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": " ⏻  ",
+    "tooltip": false,
+    "on-click": "shutdown now"
+  },
+  "custom/separator": {
+    "format": " "
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+    <child>
+        <object class="GtkMenuItem" id="random">
+			<property name="label">random</property>
+        </object>
+    </child>
+    <child>
+		<object class="GtkMenuItem" id="select">
+			<property name="label">select wallpaper through wayapepr</property>
+		</object>
+    </child>
+	<child>
+		<object class="GtkMenuItem" id="download">
+			<property name="label">download wallpaper randomly</property>
+        </object>
+	</child>
+	<child>
+        <object class="GtkMenuItem" id="remove">
+			<property name="label">remove current wallpaper to dislike</property>
+        </object>
+	</child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="delimiter1"/>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,69 @@
+{
+    "workbench.colorTheme": "Halcyon",
+    "fittencode.languagePreference.displayPreference": "zh-cn",
+    "fittencode.languagePreference.commentPreference": "zh-cn",
+    "editor.stickyScroll.enabled": false,
+    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono','Noto Sans Mono CJK SC'",
+    "http.proxy": "socks5://127.0.0.1:10808",
+    "animations.Enabled": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.fontSize": 16,
+    "liveServer.settings.donotShowInfoMsg": true,
+    // "git.enableSmartCommit": true,
+    // "explorer.confirmDelete": false,
+    "http.proxyAuthorization": null,
+    "vim.useSystemClipboard": true,
+    "vim.handleKeys": {
+        "<C-p>": false,
+        "<C-r>": false,
+        "<C-k>": false,
+        "<C-o>": false
+    },
+    // "keyboard.dispatch": "keyCode",
+    // "workbench.navigationControl.enabled": false,
+    // "workbench.layoutControl.enabled": false,
+    // "window.commandCenter": false,
+    // "window.customTitleBarVisibility": "never",
+    // "window.menuBarVisibility": "compact",
+    // "explorer.confirmDragAndDrop": false,
+    // "fittencode.selection.showCodeLens": false,
+    // "terminal.integrated.env.linux": {},
+    // "console-ninja.featureSet": "Community",
+    "qt-qml.qmlls.useQmlImportPathEnvVar": true,
+    "qt-core.additionalQtPaths": [
+        {
+            "name": "Qt-5.15.17-linux-g++_from_PATH",
+            "path": "/usr/bin/qmake"
+        }
+    ],
+    "[qml]": {
+        "editor.defaultFormatter": "Delgan.qml-format"
+    },
+    "qt-qml.qmlls.enabled": false,
+    "qt-qml.doNotAskForQmllsDownload": true,
+    // "material-code.primaryColor": "#1273ED",
+    // "editor.minimap.showSlider": "always",
+    // "editor.minimap.renderCharacters": false,
+    "fittencode.useAutoEditCompletion.open": "Off",
+    "fittencode.inlineCompletion.enable": false,
+    "fittencode.action.askFile.showInResourceMenu": true,
+    "update.mode": "none",
+    "explorer.confirmDelete": false,
+    "editor.unicodeHighlight.allowedLocales": {
+        "zh-hans": true
+    },
+    "explorer.confirmDragAndDrop": false,
+    "git.enableSmartCommit": true,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.inlineSuggest.edits.allowCodeShifting": "never",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false
+    },
+    "github.copilot.nextEditSuggestions.enabled": false,
+    "chat.tips.enabled": false,
+    "liveSassCompile.settings.showOutputWindowOn": "None",
+    "workbench.startupEditor": "none"
+}
