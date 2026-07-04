@@ -1,12 +1,13 @@
+@import "/home/kyee/.cache/wal/colors-waybar.css";
 * {
   padding: 0;
   margin: 0;
   font-family: JetBrainsMono Nerd Font;
   font-weight: bold;
   font-size: 16px;
-  background-color: #25293d;
+  background-color: @background;
   /* Reduced opacity background */
-  /* border-radius: 10px; */
+  border-radius: 13px;
 }
 
 window#waybar {
@@ -17,33 +18,33 @@ window#waybar {
 
 #custom-launcher {
   font-size: 20px;
-  color: #00bfff;
+  color: @color4;
   padding-right: 10px;
   margin-left: 5px;
 }
 
 #custom-updates {
-  color: #85c1dc;
+  color: @color6;
 }
 
 #custom-updates.ok {
-  color: #85c1dc;
+  color: @color6;
 }
 
 #custom-updates.bad {
-  color: #ed8796;
+  color: @color1;
 }
 
 #disk {
-  color: #68b0d6;
+  color: @color4;
 }
 
 #workspaces button {
   padding: 0;
   margin: 3px 0;
   border-radius: 30px;
-  border: 2px #25293d;
-  background: #25293d;
+  border: 2px @background;
+  background: @background;
 }
 
 #workspaces button label {
@@ -51,47 +52,47 @@ window#waybar {
 }
 
 #workspaces button:nth-child(1) label {
-  color: #8aadf4;
+  color: @color1;
 }
 
 #workspaces button:nth-child(2) label {
-  color: #ed8796;
+  color: @color2;
 }
 
 #workspaces button:nth-child(3) label {
-  color: #a6da95;
+  color: @color3;
 }
 
 #workspaces button:nth-child(4) label {
-  color: #c6a0f6;
+  color: @color4;
 }
 
 #workspaces button:nth-child(5) label {
-  color: #f4dbd6;
+  color: @color5;
 }
 
 #workspaces button:nth-child(6) label {
-  color: #f5a97f;
+  color: @color6;
 }
 
 #workspaces button:nth-child(7) label {
-  color: #8bd5ca;
+  color: @color9;
 }
 
 #workspaces button:nth-child(8) label {
-  color: #68b0d6;
+  color: @color8;
 }
 
 #workspaces button:nth-child(9) label {
-  color: #aab1d3;
+  color: @foreground;
 }
 
 #workspaces button.active label {
-  background-color: #363a4f;
+  background-color: @color8;
 }
 
 #workspaces button.urgent label {
-  background-color: #eed49f;
+  background-color: @color5;
 }
 
 #workspaces button.default label {
@@ -99,11 +100,11 @@ window#waybar {
 }
 
 #tray menu {
-  color: #cad3f5;
+  color: @foreground;
 }
 
 #clock {
-  color: #cad3f5;
+  color: @foreground;
   padding-left: 10px;
   padding-right: 10px;
   margin-top: 5px;
@@ -119,13 +120,13 @@ window#waybar {
 }
 
 #cpu {
-  color: #eed49f;
+  color: @color3;
   padding: 0px 10px 0px 12px;
   border-radius: 5px 0px 0px 5px;
 }
 
 #memory {
-  color: #a6da95;
+  color: @color2;
   padding: 0px 10px 0px 0px;
   border-radius: 0;
 }
@@ -138,60 +139,60 @@ window#waybar {
 }
 
 #backlight {
-  color: #eed49f;
+  color: @color5;
 }
 
 #pulseaudio {
-  color: #91d7e3;
+  color: @color6;
 }
 
 #bluetooth {
-  color: #8aadf4;
+  color: @color4;
 }
 
 #network {
-  color: #c6a0f6;
+  color: @color5;
   margin-right: 10px;
 }
 
 #battery {
-  color: #a6da95;
+  color: @color2;
 }
 
 #custom-hiddenWaybar {
-  color: #8aadf4;
+  color: @color4;
   font-size: 17px;
   font-weight: bold;
   margin-right: 9px;
 }
 
 #custom-changeCaps {
-  color: #b7bdf8;
+  color: @foreground;
   font-size: 24px;
   font-weight: bold;
 }
 
 #custom-bingwallpaper {
-  color: #8aadf4;
+  color: @color4;
   font-size: 18px;
 }
 
 #custom-wallpaper {
-  color: #8bd5ca;
+  color: @color6;
   font-size: 17px;
 }
 
 #custom-download {
-  color: #8aadf4;
+  color: @color4;
 }
 
 #custom-power {
-  color: #b7bdf8;
+  color: @foreground;
 }
 
 /* #custom-changeCaps:hover,
 #custom-wallpaper:hover,
 #custom-download:hover,
 #custom-power:hover {
-  background-color: #494d64;
+  background-color: @color8;
 } */

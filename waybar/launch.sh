@@ -1,4 +1,4 @@
-killall waybar
+pkill waybar
 
 if [[ $USER == "kyee" ]]
 then

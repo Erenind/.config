@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "Halcyon",
+    "workbench.colorTheme": "Wal Bordered",
     "fittencode.languagePreference.displayPreference": "zh-cn",
     "fittencode.languagePreference.commentPreference": "zh-cn",
     "editor.stickyScroll.enabled": false,
@@ -65,5 +65,14 @@
     "github.copilot.nextEditSuggestions.enabled": false,
     "chat.tips.enabled": false,
     "liveSassCompile.settings.showOutputWindowOn": "None",
-    "workbench.startupEditor": "none"
+    "workbench.startupEditor": "none",
+    "git.openRepositoryInParentFolders": "never",
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc": "default",
+        "*.qrc": "qt-core.qrcEditor"
+    },
+    "Lua.workspace.library": [
+        "/run/current-system/sw/share/hypr/stubs/hl.meta.lua"
+    ]
 }
