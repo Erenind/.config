@@ -1,13 +1,12 @@
 import QtQuick
 import Quickshell
 
-PanelWindow {
-    anchors {
-        top: true
-        left: true
-        right: true
-    }
-    implicitHeight: 33
 
-
+Scope {
+    Bar {}
 }
+
+
+// Play {
+//     colours: colours
+// }
