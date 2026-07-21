@@ -74,5 +74,11 @@
     },
     "Lua.workspace.library": [
         "/run/current-system/sw/share/hypr/stubs/hl.meta.lua"
-    ]
+    ],
+    "workbench.layoutControl.enabled": false,
+    "workbench.openInAgents.enabled": false,
+    "workbench.browser.showInTitleBar": false,
+    "workbench.navigationControl.enabled": false,
+    "chat.agentsControl.enabled": "hidden",
+    "workbench.editor.empty.hint": "hidden"
 }

@@ -25,8 +25,9 @@ hl.config({
         blur = {
             enabled = true,
             size = 8,
-            passes = 1,
+            passes = 2,
             vibrancy = 0.1696,
+            ignore_opacity = true,
         },
     },
     animations = {

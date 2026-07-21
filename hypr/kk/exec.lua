@@ -1,7 +1,7 @@
 hl.on("hyprland.start", function()
     hl.exec_cmd("waypaper --restore")
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("[workspace 10 silent] ~/.store/portable/v2rayN-linux-64/v2rayN")
+    hl.exec_cmd("[workspace 10 silent] ~/.store/portable/v2rayN-7.24.1/v2rayN")
     hl.exec_cmd("waybar")
     hl.exec_cmd("fcitx5")
     hl.exec_cmd("python ~/.store/code/py/randomWallpaper.py")

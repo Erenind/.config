@@ -41,3 +41,19 @@ hl.window_rule({
     float = true,
     size = {tostring(obsidianWidth),tostring(obsidianHeight)}
 })
+
+hl.window_rule({
+    match = {
+        class = "code"
+    },
+    float = true,
+    size = {tostring(obsidianWidth),tostring(obsidianHeight)}
+})
+
+hl.window_rule({
+    match = {
+        class = "kitty"
+    },
+    opaque = true
+
+})
