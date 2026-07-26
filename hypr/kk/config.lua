@@ -1,11 +1,38 @@
+local function load_json(filepath)
+    local file = io.open(filepath,"r")
+    if not file then return nil end
+    local content = file:read("*a")
+    file:close()
+
+    return content
+end
+
+local function hex_to_rgba(hex, alpha)
+    alpha = alpha or "ee"
+    return string.format("rgba(%s%s)", hex, alpha)
+end
+
+local wal = {}
+local wal_content = load_json(os.getenv("HOME") .. "/.cache/wal/colors.json")
+if wal_content then
+    for color, hex in wal_content:gmatch('"(color%d+)":%s*"#([%x]+)"') do
+        wal[color] = hex
+    end
+end
+
+local border_c4 = wal.color4 and hex_to_rgba(wal.color4) or "rgba(33ccffee)"
+local border_c3 = wal.color3 and hex_to_rgba(wal.color3) or "rgba(7BC0E7ee)"
+local border_c5 = wal.color5 and hex_to_rgba(wal.color5) or "rgba(00ff99ee)"
+local border_inactive = wal.color0 and hex_to_rgba(wal.color0, "aa") or "rgba(595959aa)"
+
 hl.config({
     general = {
         gaps_in = 5,
         gaps_out = 10,
         border_size = 2,
         col = {
-            active_border = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            active_border = { colors = {border_c4, border_c3, border_c5}, angle = 45 },
+            inactive_border = border_inactive,
         },
         resize_on_border = false,
         allow_tearing = false,
