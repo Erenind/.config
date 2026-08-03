@@ -57,3 +57,11 @@ hl.window_rule({
     opaque = true
 
 })
+
+hl.window_rule({
+    match = {
+        title = "quickshell"
+    },
+    float = true;
+}
+)

@@ -37,7 +37,7 @@
         }
     ],
     "[qml]": {
-        "editor.defaultFormatter": "Delgan.qml-format"
+        "editor.defaultFormatter": "AndreOneti.qml-formatter"
     },
     "qt-qml.qmlls.enabled": false,
     "qt-qml.doNotAskForQmllsDownload": true,
@@ -80,5 +80,6 @@
     "workbench.browser.showInTitleBar": false,
     "workbench.navigationControl.enabled": false,
     "chat.agentsControl.enabled": "hidden",
-    "workbench.editor.empty.hint": "hidden"
+    "workbench.editor.empty.hint": "hidden",
+    "c-cpp-compile-run.c-compiler": "/nix/store/29qjlshvklnyr67nhpprzgb9igmsfsjj-gcc-wrapper-15.2.0/bin/gcc"
 }
