@@ -1,0 +1,1 @@
+/home/kyee/.cache/wal/colors.qml

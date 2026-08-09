@@ -23,7 +23,7 @@ end
 local border_c4 = wal.color4 and hex_to_rgba(wal.color4) or "rgba(33ccffee)"
 local border_c3 = wal.color3 and hex_to_rgba(wal.color3) or "rgba(7BC0E7ee)"
 local border_c5 = wal.color5 and hex_to_rgba(wal.color5) or "rgba(00ff99ee)"
-local border_inactive = wal.color0 and hex_to_rgba(wal.color0, "aa") or "rgba(595959aa)"
+local border_inactive = wal.color8 and hex_to_rgba(wal.color8, "aa") or "rgba(595959aa)"
 
 hl.config({
     general = {

@@ -1,7 +1,7 @@
 hl.on("hyprland.start", function()
     hl.exec_cmd("waypaper --restore")
     hl.exec_cmd("[workspace 10 silent] v2rayN")
-    hl.exec_cmd("waybar")
+    hl.exec_cmd("quickshell")
     hl.exec_cmd("python ~/.store/code/py/randomWallpaper.py")
     hl.exec_cmd("fcitx5")
 end)

@@ -37,7 +37,7 @@
         }
     ],
     "[qml]": {
-        "editor.defaultFormatter": "AndreOneti.qml-formatter"
+        "editor.defaultFormatter": "qml-formatter.noQt-qml-formatter"
     },
     "qt-qml.qmlls.enabled": false,
     "qt-qml.doNotAskForQmllsDownload": true,
@@ -81,5 +81,7 @@
     "workbench.navigationControl.enabled": false,
     "chat.agentsControl.enabled": "hidden",
     "workbench.editor.empty.hint": "hidden",
-    "c-cpp-compile-run.c-compiler": "/nix/store/29qjlshvklnyr67nhpprzgb9igmsfsjj-gcc-wrapper-15.2.0/bin/gcc"
+    "c-cpp-compile-run.c-compiler": "/nix/store/sf94i342x394ls6l9pfzrvh1f6dmhqzm-gcc-wrapper-15.2.0/bin/gcc",
+    "security.workspace.trust.untrustedFiles": "open",
+    "qmlFormat.command": ""
 }
