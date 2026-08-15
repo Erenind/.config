@@ -10,7 +10,9 @@ Item {
     property int systemPackages: 0
     property int userPackages: 0
     property int generation: 0
+    property int nixStoreCount: 0
     property string lastUpdated: ""
+    property string kernelVersion: ""
 
     Timer {
         interval: 0
@@ -26,8 +28,8 @@ Item {
         id: versionFv
         path: "/run/current-system/nixos-version"
         onLoaded: {
-            const v = text().trim()
-            if (v !== root.version) root.version = v
+            const v = text().trim().split(".")
+            if (v !== root.version) root.version = v.slice(0,2).join(".")
         }
     }
 
@@ -83,16 +85,25 @@ Item {
     }
 
     Process {
-        id: lastUpdProc
-        command: ["stat", "-c", "%Y", "/run/current-system"]
+        id: storeCountProcess
+        command: ["sh", "-c", "ls -1 /nix/store | wc -l"]
         running: true
-        stdout: SplitParser {
-            onRead: data => {
-                const ts = parseInt(data.trim())
-                if (!isNaN(ts)) {
-                    const dt = Qt.formatDateTime(new Date(ts * 1000), "yyyy-MM-dd HH:mm")
-                    if (dt !== root.lastUpdated) root.lastUpdated = dt
-                }
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                root.nixStoreCount = parseInt(text.trim()) || 0
+            }
+        }
+    }
+
+    Process {
+        command: ["sh","-c","nixos-rebuild list-generations | grep True"]
+        running: true
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                root.lastUpdated = this.text.trim().split(/\s+/)[1].slice(5) || "error"
+                root.kernelVersion = this.text.trim().split(/\s+/)[4] || "error"
             }
         }
     }

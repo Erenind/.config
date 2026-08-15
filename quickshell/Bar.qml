@@ -11,11 +11,51 @@ Scope {
     id: barRoot
 
     property bool leftmenuOpen: false
+    property bool rightmenuOpen: false
+    property bool leftmenuVisible: false
+    property bool rightmenuVisible: false
+
+    onLeftmenuOpenChanged: {
+        if (leftmenuOpen) {
+            leftmenuVisible = true
+            leftCloseTimer.stop()
+        } else {
+            leftCloseTimer.start()
+        }
+    }
+
+    onRightmenuOpenChanged: {
+        if (rightmenuOpen) {
+            rightmenuVisible = true
+            rightCloseTimer.stop()
+        } else {
+            rightCloseTimer.start()
+        }
+    }
+
+    Timer {
+        id: leftCloseTimer
+        interval: 350
+        onTriggered: {
+            if (!leftmenuOpen)
+                leftmenuVisible = false
+        }
+    }
+
+    Timer {
+        id: rightCloseTimer
+        interval: 350
+        onTriggered: {
+            if (!rightmenuOpen)
+                rightmenuVisible = false
+        }
+    }
 
     Colors { id: wal }
     BatteryInfo { id: battery }
     NixosInfo { id: nixos }
 
+    // bar
     PanelWindow {
         id: bar
         color: "transparent"
@@ -41,7 +81,7 @@ Scope {
             RowLayout {
                 anchors.fill: parent
                 anchors.leftMargin: 10
-                spacing: 10
+                spacing: 5
 
                 // left
                 Rectangle {
@@ -61,10 +101,12 @@ Scope {
                     }
 
                     RowLayout {
+
                         Text {
                             text: ""
                             font.pixelSize: 24
                             color: wal.color4
+                            Layout.topMargin:2
                         }
                         Text {
                             text: nixos.codename
@@ -142,12 +184,23 @@ Scope {
                     implicitHeight:33
                     implicitWidth:50
                     color:"transparent"
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        hoverEnabled: true
+                        onClicked: {
+                            barRoot.rightmenuOpen = ! barRoot.rightmenuOpen
+                        }
+                    }
+
                     Text {
                         color: wal.color6
                         text: `󱐋${battery.capacity}`
                         font.pixelSize: 18
                         font.bold: true
                         anchors.centerIn: parent
+                        anchors.verticalCenterOffset: 1
                     }
                 }
 
@@ -155,7 +208,7 @@ Scope {
                 Rectangle {
                     color: "transparent"
                     implicitHeight: 33
-                    implicitWidth: 80
+                    implicitWidth: 105
 
                     Text {
                         id: clockText
@@ -174,7 +227,7 @@ Scope {
 
                             onTriggered: {
 
-                                clockText.text = Qt.formatDateTime(new Date(), "HH:mm")
+                                clockText.text = Qt.formatDateTime(new Date(), "h:mm ap")
                             }
                         }
                     }
@@ -193,7 +246,7 @@ Scope {
         implicitHeight: 400
         implicitWidth: subinfoleft.implicitHeight * 0.618
         color: "transparent"
-        visible: barRoot.leftmenuOpen
+        visible: barRoot.leftmenuVisible
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
         focusable: true
 
@@ -226,17 +279,6 @@ Scope {
             Behavior on y {
                 NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
             }
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onExited: {
-                    leftmenuCloseTimer.restart()
-                }
-
-                onEntered: {
-                    leftmenuCloseTimer.stop()
-                }
-            }
 
             ColumnLayout {
                 anchors.fill: parent
@@ -246,56 +288,242 @@ Scope {
                 anchors.bottomMargin: 10
                 spacing: 10
 
+                // system info
                 Rectangle {
-                    id: trayContainer
-                    implicitHeight: 33
-                    color: wal.color8
-                    radius:10
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignTop 
-
-                    RowLayout {
-                        spacing: 5
-                        Repeater {
-                            model: SystemTray.items
-
-                            delegate: Item {
-                                required property SystemTrayItem modelData
-                                width:28
-                                height:28
-
-                                Image {
-                                    anchors.fill: parent
-                                    source: modelData.icon
-                                }
-                                MouseArea {
-                                    anchors.fill: parent
-                                    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-
-                                    onClicked: (mouse) => {
-                                        if (mouse.button === Qt.LeftButton) {
-                                            if (modelData.onlyMenu) {
-                                                modelData.display(parentWindow, mouse.x, mouse.y)
-                                            } else {
-                                                modelData.activate()
-                                            }
-                                        } else if (mouse.button === Qt.RightButton) {
-                                            if (modelData.hasMenu) {
-                                                modelData.display(parentWindow, mouse.x, mouse.y)
-                                            }
-                                        } else if (mouse.button === Qt.MiddleButton) {
-                                            modelData.secondaryActivate()
-                                        }
-                                    }
-                                }
-
+                    Layout.fillHeight: true
+                    radius:10
+                    color: wal.color2Dark
+                    ColumnLayout {
+                        anchors.fill: parent
+                        anchors.margins: 10
+                        spacing:10
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Text {
+                                width: 24
+                                text: ""
+                                font.family: "JetBrainsMono Nerd Font Mono"
+                                font.pixelSize: 26
+                                color: wal.color6
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: "Kernel_v"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: nixos.kernelVersion
+                                font.family: "Noto Sans CJK SC"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
                             }
                         }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
 
+                            Text {
+                                width: 24
+                                text: ""
+                                font.family: "JetBrainsMono Nerd Font Mono"
+                                font.pixelSize: 28
+                                color: wal.color6
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: "Nixos_v"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: nixos.version
+                                font.family: "Noto Sans CJK SC"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Text {
+                                width: 24
+                                text: "󰄛"
+                                font.family: "JetBrainsMono Nerd Font Mono"
+                                font.pixelSize: 28
+                                color: wal.color6
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text:"Codename"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: nixos.codename
+                                font.family: "Noto Sans CJK SC"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Text {
+                                width: 24
+                                text: ""
+                                font.family: "JetBrainsMono Nerd Font Mono"
+                                font.pixelSize: 24
+                                color: wal.color6
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text:"Nix/store"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: nixos.nixStoreCount
+                                font.family: "Noto Sans CJK SC"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Text {
+                                width: 24
+                                text: ""
+                                font.family: "JetBrainsMono Nerd Font Mono"
+                                font.pixelSize: 24
+                                color: wal.color6
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: "Generation"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text:nixos.generation
+                                font.family: "Noto Sans CJK SC"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Text {
+                                width: 24
+                                text: "󰚰"
+                                font.family: "JetBrainsMono Nerd Font Mono"
+                                font.pixelSize: 26
+                                color: wal.color6
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: "LastRebuild"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: nixos.lastUpdated
+                                font.family: "Noto Sans CJK SC"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
                     }
-
                 }
 
+                // reboot
+                Rectangle {
+                    id: rebootMenu
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignBottom
+                    implicitHeight:33
+                    radius:10
+                    color: wal.color2
+
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: parent.radius
+                        color: "white"
+                        opacity: rebootMenuMouse.containsMouse ? 0.15 : 0
+                        Behavior on opacity { NumberAnimation { duration: 120 } }
+                    }
+
+                    Text {
+                        text: "󰑓 Reboot"
+                        font.pixelSize: 16
+                        font.bold: true
+                        color: wal.color0
+                        anchors.centerIn: parent
+                    }
+
+                    Process {
+                        id: rebootProcess
+                        running: false
+                    }
+
+                    MouseArea {
+                        id: rebootMenuMouse
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            rebootProcess.exec(["sh","-c","reboot"])
+                        }
+                    }
+                }
+
+                // shutdown
                 Rectangle {
                     id: powerMenu
                     Layout.fillWidth: true
@@ -320,13 +548,274 @@ Scope {
                         anchors.centerIn: parent
                     }
 
+                    Process {
+                        id:shutdownProcess
+                        running: false
+                    }
+
                     MouseArea {
                         id: powerMenuMouse
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            Process.exec(["shutdown","now"])
+                            shutdownProcess.exec(["sh","-c","shutdown now"])
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // subinforight
+    PanelWindow {
+        id: subinforight
+        implicitHeight: 290
+        implicitWidth: subinforight.implicitHeight * 0.9
+        color: "transparent"
+        visible: barRoot.rightmenuVisible
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+        focusable: true
+
+        anchors {
+            right: true
+            bottom: true
+        }
+
+        margins {
+            right: 5
+            bottom: 5
+        }
+
+        HoverHandler {
+            id: rightHoverHandler
+            onHoveredChanged: {
+                if (!hovered && rightmenuOpen) {
+                    rightmenuOpen = false
+                }
+            }
+        }
+
+        Rectangle {
+            color: wal.background
+            implicitHeight: subinforight.implicitHeight
+            implicitWidth: subinforight.implicitWidth
+            radius: 10
+            x: rightmenuOpen ? 0 : this.implicitWidth
+
+            Behavior on x {
+                NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.topMargin: 10
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
+                anchors.bottomMargin: 10
+                spacing: 10
+
+                // battery info
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    radius: 10
+                    color: wal.color3Dark
+                    ColumnLayout {
+                        anchors.fill: parent
+                        anchors.margins: 10
+                        spacing: 10
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Item {
+                                Layout.preferredWidth: 24
+                                Layout.preferredHeight: 33
+                                Text {
+                                    anchors.centerIn: parent
+                                    font.family: "JetBrainsMono Nerd Font Mono"
+                                    text: "󰁹"
+                                    font.pixelSize: 20
+                                    font.bold: true
+                                    color: wal.color7
+                                }
+                            }
+                            Text {
+                                text: "Capacity"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: `${battery.capacity}%`
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Item {
+                                Layout.preferredWidth: 24
+                                Layout.preferredHeight: 33
+                                Text {
+                                    anchors.centerIn: parent
+                                    font.family: "JetBrainsMono Nerd Font Mono"
+                                    text: "󰚥"
+                                    font.pixelSize: 20
+                                    font.bold: true
+                                    color: wal.color7
+                                }
+                            }
+                            Text {
+                                text: "Status"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: battery.status
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Item {
+                                Layout.preferredWidth: 24
+                                Layout.preferredHeight: 33
+                                Text {
+                                    anchors.centerIn: parent
+                                    font.family: "JetBrainsMono Nerd Font Mono"
+                                    text: "󰊚"
+                                    font.pixelSize: 28
+                                    font.bold: true
+                                    color: wal.color7
+                                }
+                            }
+                            Text {
+                                text: "Level"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: battery.capacityLevel
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Item {
+                                Layout.preferredWidth: 24
+                                Layout.preferredHeight: 33
+                                Text {
+                                    anchors.centerIn: parent
+                                    font.family: "JetBrainsMono Nerd Font Mono"
+                                    text: "󱐋"
+                                    font.pixelSize: 20
+                                    font.bold: true
+                                    color: wal.color7
+                                }
+                            }
+                            Text {
+                                text: "Energy"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: `${battery.energy.toFixed(1)} Wh`
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Item {
+                                Layout.preferredWidth: 24
+                                Layout.preferredHeight: 33
+                                Text {
+                                    anchors.centerIn: parent
+                                    font.family: "JetBrainsMono Nerd Font Mono"
+                                    text: "󱩘"
+                                    font.pixelSize: 25
+                                    font.bold: true
+                                    color: wal.color7
+                                }
+                            }
+                            Text {
+                                text: "Power"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: `${battery.power.toFixed(1)} W`
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 33
+                            Item {
+                                Layout.preferredWidth: 24
+                                Layout.preferredHeight: 33
+                                Text {
+                                    anchors.centerIn: parent
+                                    font.family: "JetBrainsMono Nerd Font Mono"
+                                    text: "󰗶"
+                                    font.pixelSize: 25
+                                    font.bold: true
+                                    color: wal.color7
+                                }
+                            }
+                            Text {
+                                text: "Health"
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color7
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: `${battery.health.toFixed(1)}%`
+                                font.pixelSize: 18
+                                font.bold: true
+                                color: wal.color5
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
                         }
                     }
                 }

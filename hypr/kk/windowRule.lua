@@ -36,7 +36,7 @@ local obsidianHeight = obsidianWidth * 0.618
 
 hl.window_rule({
     match = {
-        class = "obsidian"
+        class = "md.Obsidian"
     },
     float = true,
     size = {tostring(obsidianWidth),tostring(obsidianHeight)}
@@ -63,8 +63,15 @@ hl.window_rule({
         title = "quickshell"
     },
     float = true;
-}
-)
+})
+
+hl.window_rule({
+    match = {
+        class = "org.keepassxc.KeePassXC"
+    },
+    float = true,
+    size = {"10","10"}
+})
 
 hl.layer_rule({
     match = {
