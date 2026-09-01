@@ -7,7 +7,7 @@ local floatWindowHeight = floatWindowWidth * 0.618
 
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("hyprctl dispatch exit"))
+hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", function()
     hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
@@ -80,5 +80,5 @@ hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { repeating = true })
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("~/.store/code/sh/changebrightness up"),   { repeating = true })
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("~/.store/code/sh/changebrightness down"), { repeating = true })
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),   { repeating = true })
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { repeating = true })
