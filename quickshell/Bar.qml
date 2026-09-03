@@ -6,6 +6,7 @@ import Quickshell.Io
 import Quickshell.Wayland
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
+import Quickshell.Services.Pipewire
 
 Scope {
     id: barRoot
@@ -14,6 +15,7 @@ Scope {
     property bool rightmenuOpen: false
     property bool leftmenuVisible: false
     property bool rightmenuVisible: false
+    property real currentVolume: Pipewire.defaultAudioSink.audio.volume
 
     onLeftmenuOpenChanged: {
         if (leftmenuOpen) {
@@ -178,6 +180,21 @@ Scope {
                     Layout.fillWidth: true;
                     implicitHeight: 33
                 }
+
+                // light and volume
+
+                // Rectangle {
+                //     Layout.fillHeight: true;
+                //     implicitWidth: 30;
+                //     Text {
+                //         // text: `${Math.round(sink.audio.volume * 100)}`;
+                //         text: currentVolume
+                //     }
+                // }
+                // Rectangle {
+                //     Layout.fillHeight: true;
+                //     implicitWidth: 30;
+                // }
 
                 // battery
                 Rectangle {
