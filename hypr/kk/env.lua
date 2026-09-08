@@ -12,3 +12,6 @@ hl.env("HYPRSHOT_DIR","/home/kyee/.store/picture/")
 hl.env("QS_NO_RELOAD_POPUP", "1")
 hl.env("GTK_CSD","0")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION","1")
+
+hl.env("XDG_CURRENT_DESKTOP","Hyprland")
+hl.env("XDG_SESSION_DESKTOP","Hyprland")

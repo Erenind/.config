@@ -80,5 +80,5 @@ hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { repeating = true })
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),   { repeating = true })
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { repeating = true })
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("qs ipc call brightness brightness up"),   { repeating = true })
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("qs ipc call brightness brightness down"), { repeating = true })

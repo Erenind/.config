@@ -4,9 +4,9 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
-import Quickshell.Widgets
-import Quickshell.Services.SystemTray
-import Quickshell.Services.Pipewire
+// import Quickshell.Widgets
+// import Quickshell.Services.SystemTray
+// import Quickshell.Services.Pipewire
 
 Scope {
     id: barRoot
@@ -15,7 +15,6 @@ Scope {
     property bool rightmenuOpen: false
     property bool leftmenuVisible: false
     property bool rightmenuVisible: false
-    property real currentVolume: Pipewire.defaultAudioSink.audio.volume
 
     onLeftmenuOpenChanged: {
         if (leftmenuOpen) {
@@ -40,7 +39,7 @@ Scope {
         interval: 350
         onTriggered: {
             if (!leftmenuOpen)
-                leftmenuVisible = false
+            leftmenuVisible = false
         }
     }
 
@@ -49,13 +48,14 @@ Scope {
         interval: 350
         onTriggered: {
             if (!rightmenuOpen)
-                rightmenuVisible = false
+            rightmenuVisible = false
         }
     }
 
     Colors { id: wal }
     BatteryInfo { id: battery }
     NixosInfo { id: nixos }
+    Brightness {id:brightness}
 
     // bar
     PanelWindow {
@@ -191,10 +191,45 @@ Scope {
                 //         text: currentVolume
                 //     }
                 // }
-                // Rectangle {
-                //     Layout.fillHeight: true;
-                //     implicitWidth: 30;
-                // }
+                Rectangle {
+                    Layout.fillHeight: true;
+                    implicitWidth: 100;
+                    id: brightness_rect
+                    visible: false
+                    Text {
+                        text: brightness.result
+                    }
+                }
+                Process {
+                    id: brightness_up_process
+                    command: ["sh","-c","brightnessctl -e0 set 50+"]
+                }
+                Process {
+                    id: brightness_down_process
+                    command: ["sh","-c","brightnessctl -e0 set 50-"]
+                }
+                Timer {
+                    id: brightness_rect_cutdown
+                    interval: 2000
+                    onTriggered: {
+                        brightness_rect.visible = false
+                    }
+                }
+                IpcHandler {
+                    target: "brightness"
+                    function brightness(ipc_r:string): void {
+                        brightness_rect.visible = true
+                        brightness_rect_cutdown.restart()
+                        if(ipc_r == "up") {
+                            brightness_up_process.running = true
+                        }
+                        if (ipc_r == "down") {
+                            brightness_down_process.running = true
+                        }
+                        brightness.restart()
+
+                    }
+                }
 
                 // battery
                 Rectangle {
