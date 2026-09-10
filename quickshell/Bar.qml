@@ -56,6 +56,7 @@ Scope {
     BatteryInfo { id: battery }
     NixosInfo { id: nixos }
     Brightness {id:brightness}
+    Volume {id:volume}
 
     // bar
     PanelWindow {
@@ -183,30 +184,89 @@ Scope {
 
                 // light and volume
 
-                // Rectangle {
-                //     Layout.fillHeight: true;
-                //     implicitWidth: 30;
-                //     Text {
-                //         // text: `${Math.round(sink.audio.volume * 100)}`;
-                //         text: currentVolume
-                //     }
-                // }
                 Rectangle {
+                    id:volume_rect
+                    visible: false
                     Layout.fillHeight: true;
                     implicitWidth: 100;
+                    // color: "transparent"
+                    RowLayout {
+                        Text {
+                            // text: `${Math.round(sink.audio.volume * 100)}`;
+                            text: ""
+                        }
+                        Text {
+                            text: volume.result
+                        }
+                    }
+                }
+
+                Process {
+                    id:volume_process_up
+                    command: ["sh","-c","wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+"]
+                }
+                Process {
+                    id:volume_process_down
+                    command:["sh","-c","wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"]
+                }
+                Timer {
+                    id: volume_rect_cutdown
+                    interval: 2000
+                    onTriggered: {
+                        volume_rect.visible = false
+                    }
+                }
+
+
+                IpcHandler {
+                    target: "volume"
+                    function volume(ipc_r:string): void {
+                        volume_rect.visible = true
+                        volume_rect_cutdown.restart()
+                        volume.restart()
+                        if(ipc_r == "up") {
+                            volume_process_up.running = true
+                        }
+                        if(ipc_r == "down") {
+                            volume_process_down.running = true
+                        }
+                    }
+
+                }
+
+                Rectangle {
+                    Layout.fillHeight: true;
+                    implicitWidth: 230;
                     id: brightness_rect
                     visible: false
-                    Text {
-                        text: brightness.result
+                    color: "transparent"
+                    RowLayout {
+                        anchors.centerIn: parent
+                        Text {
+                            text: "󰃠"
+                            color: wal.color4
+                            font {
+                                pixelSize: 20
+                            }
+                        }
+                        Text {
+                            text: brightness.result
+                            color: wal.color4
+                            font {
+                                bold: true
+                                pixelSize: 16
+                            }
+                        }
                     }
+
                 }
                 Process {
                     id: brightness_up_process
-                    command: ["sh","-c","brightnessctl -e0 set 50+"]
+                    command: ["sh","-c","brightnessctl -e0 set 20+"]
                 }
                 Process {
                     id: brightness_down_process
-                    command: ["sh","-c","brightnessctl -e0 set 50-"]
+                    command: ["sh","-c","brightnessctl -e0 set 20-"]
                 }
                 Timer {
                     id: brightness_rect_cutdown

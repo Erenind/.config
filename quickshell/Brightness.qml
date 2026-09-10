@@ -28,7 +28,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 root.brightness = this.text
-                root.result = `${root.brightness}/${root.max_brightness}`
+                root.result = `${root.brightness}/${root.max_brightness} ${(Math.pow((root.brightness / root.max_brightness),2.2) * max_nits).toFixed(3)}nits`
             }
         }
     }

@@ -84,5 +84,6 @@
     "security.workspace.trust.untrustedFiles": "open",
     "qmlFormat.command": "",
     "workbench.navigationControl.enabled": false,
-    "chat.titleBar.openInAgentsWindow.enabled": false
+    "chat.titleBar.openInAgentsWindow.enabled": false,
+    "editor.cursorSurroundingLines": 4
 }

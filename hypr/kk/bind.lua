@@ -76,8 +76,8 @@ hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("hyprshot -m window -m region --clipb
 hl.bind(mainMod .. " + F",         hl.dsp.exec_cmd("hyprctl dispatch fullscreenstate 1"))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("hyprctl dispatch fullscreen 0"))
 
-hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { repeating = true })
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("qs ipc call volume volume up"), { repeating = true })
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("qs ipc call volume volume down"),      { repeating = true })
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("qs ipc call brightness brightness up"),   { repeating = true })
