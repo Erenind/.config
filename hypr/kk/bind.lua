@@ -1,6 +1,7 @@
 local terminal = "kitty"
 local fileManager = "dolphin"
-local menu = "rofi -show drun -show-icons"
+-- local menu = "rofi -show drun -show-icons"
+local menu = "hyprlauncher"
 local mainMod = "SUPER"
 local floatWindowWidth = 1920 * 0.6
 local floatWindowHeight = floatWindowWidth * 0.618
@@ -20,7 +21,6 @@ end)
 --     hl.dispatch(hl.dsp.window.resize({ x=1920 * 0.5, y=1080 * 0.6 }))
 --     hl.dispatch(hl.dsp.window.center())
 -- end)
-hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + M", hl.dsp.window.pseudo())
 
@@ -78,7 +78,10 @@ hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("hyprctl dispatch fullscreen 
 
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("qs ipc call volume volume up"), { repeating = true })
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("qs ipc call volume volume down"),      { repeating = true })
-hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("qs ipc call volume volume mute"))
 
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("qs ipc call brightness brightness up"),   { repeating = true })
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("qs ipc call brightness brightness down"), { repeating = true })
+
+-- lock
+hl.bind(mainMod .. " + L",hl.dsp.exec_cmd("hyprlock"))

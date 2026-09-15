@@ -188,15 +188,26 @@ Scope {
                     id:volume_rect
                     visible: false
                     Layout.fillHeight: true;
-                    implicitWidth: 100;
-                    // color: "transparent"
+                    implicitWidth: 180;
+                    color: "transparent"
                     RowLayout {
+                        anchors.centerIn:parent
                         Text {
                             // text: `${Math.round(sink.audio.volume * 100)}`;
                             text: ""
+                            font {
+                                bold:true
+                                pixelSize: 20
+                            }
+                            color:wal.color5
                         }
                         Text {
                             text: volume.result
+                            font {
+                                bold: true
+                                pixelSize:16
+                            }
+                            color:wal.color5
                         }
                     }
                 }
@@ -208,6 +219,10 @@ Scope {
                 Process {
                     id:volume_process_down
                     command:["sh","-c","wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"]
+                }
+                Process {
+                    id:volume_process_mute
+                    command:["sh","-c","wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"]
                 }
                 Timer {
                     id: volume_rect_cutdown
@@ -229,6 +244,9 @@ Scope {
                         }
                         if(ipc_r == "down") {
                             volume_process_down.running = true
+                        }
+                        if(ipc_r == "mute") {
+                            volume_process_mute.running = true
                         }
                     }
 
