@@ -36,7 +36,7 @@ local obsidianHeight = obsidianWidth * 0.618
 
 hl.window_rule({
     match = {
-        class = "md.Obsidian"
+        class = "md.obsidian.Obsidian"
     },
     float = true,
     size = {tostring(obsidianWidth),tostring(obsidianHeight)}
