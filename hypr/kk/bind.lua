@@ -1,7 +1,7 @@
 local terminal = "kitty"
 local fileManager = "dolphin"
--- local menu = "rofi -show drun -show-icons"
-local menu = "hyprlauncher"
+local menu = "rofi -show drun -show-icons"
+-- local menu = "hyprlauncher"
 local mainMod = "SUPER"
 local floatWindowWidth = 1920 * 0.6
 local floatWindowHeight = floatWindowWidth * 0.618
