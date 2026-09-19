@@ -79,3 +79,25 @@ hl.layer_rule({
     },
     no_anim = true;
 })
+hl.window_rule({
+    match = {
+        class="wechat"
+    },
+    float=true,
+    no_blur=true,
+    border_size=0,
+    no_shadow=true,
+    rounding=0,
+    opacity="1.0"
+})
+hl.window_rule({
+    match = {
+        title="微信"
+    },
+    float=true,
+    no_blur=true,
+    border_size=0,
+    no_shadow=true,
+    rounding=0,
+    opacity="1.0"
+})
