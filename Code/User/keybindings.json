@@ -17,5 +17,10 @@
     {
         "key": "alt+f",
         "command": "workbench.action.findInFiles"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "-extension.vim_ctrl+j",
+        "when": "editorTextFocus && vim.active && vim.use<C-j> && !inDebugRepl"
     }
 ]
