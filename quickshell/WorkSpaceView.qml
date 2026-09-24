@@ -4,35 +4,51 @@ import Quickshell.Hyprland
 import QtQuick.Layouts
 
 PanelWindow {
+    Colors {id:wal}
     anchors {
         bottom: true;
         left: true;
     }
-    implicitWidth: 500;
-    implicitHeight: 100;
     margins {
         bottom: 5;
         left: 5;
     }
+    color: "transparent"
+    implicitHeight:100;
+    implicitWidth:1920;
 
-    readonly property var ws: Hyprland.workspaces 
+    // property
 
-    ColumnLayout {
+    RowLayout {
         Repeater {
-            model: ws.toplevels
-            delegate: Text {
-                text:`${modelData.lastIpcObject.at[1]}` 
-                // text:2 
-            }
+            model:1
+            Rectangle {
+                required property int index
+                implicitWidth: 200;
+                implicitHeight: 100;
+                color: wal.background
+                radius: 10
+                ColumnLayout {
+                Repeater {
+                    model:Hyprland.toplevels.values.length
+                    Text {
+                        // text: `${Hyprland.toplevels.values[index].lastIpcObject."at"[0]},${Hyprland.toplevels.values[index].lastIpcObject.at[1]}`
+                        text: Hyprland.toplevels.values[index].lastIpcObject.title
+                        color: wal.color3
+                    }
+                }
+ 
+                }
+           }
         }
-
     }
-
-    // Repeater {
-    //     model: HyprlandToplevel
-    //     delegate: Text {
-    //         text: modelData.title
-    //     }
-    // }
-
+    Timer {
+        interval:3000
+        running: true
+        repeat:true
+        onTriggered: {
+            console.log(Hyprland.toplevels.values[0].lastIpcObject.at)
+            Hyprland.refreshToplevels()
+        }
+    }
 }
