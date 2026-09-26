@@ -86,5 +86,6 @@
     "workbench.navigationControl.enabled": false,
     "chat.titleBar.openInAgentsWindow.enabled": false,
     "editor.cursorSurroundingLines": 4,
-    "c-cpp-compile-run.c-flags": "-Wall -Wextra -g3 -lm"
+    "c-cpp-compile-run.c-flags": "-Wall -Wextra -g3 -lm",
+    "terminal.integrated.stickyScroll.enabled": false
 }

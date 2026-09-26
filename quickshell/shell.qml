@@ -12,7 +12,7 @@ ShellRoot {
     // }
 
     Bar {}
-    // WorkSpaceView {}
+    WorkSpaceView {}
     // Notification {
     //     server: notifServer
     // }

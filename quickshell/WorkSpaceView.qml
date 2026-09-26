@@ -2,44 +2,49 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick.Layouts
+import Quickshell.Io
 
 PanelWindow {
+    id:panel_left
+    visible:false
     Colors {id:wal}
     anchors {
-        bottom: true;
-        left: true;
+        top: true
+        left: true
     }
     margins {
-        bottom: 5;
-        left: 5;
+        top: 10
+        left: 10
     }
     color: "transparent"
-    implicitHeight:100;
-    implicitWidth:1920;
 
-    // property
+    property int resolusion_width:1920
+    property int resolusion_height:1080
+    property real scaling: 0.173
 
-    RowLayout {
+    implicitHeight: resolusion_height * scaling * 5 + 100
+    implicitWidth: resolusion_width * scaling
+
+    ColumnLayout {
         Repeater {
-            model:1
+            model:5
             Rectangle {
                 required property int index
-                implicitWidth: 200;
-                implicitHeight: 100;
+                implicitWidth: resolusion_width * scaling
+                implicitHeight: resolusion_height * scaling
                 color: wal.background
+
                 radius: 10
                 ColumnLayout {
-                Repeater {
-                    model:Hyprland.toplevels.values.length
-                    Text {
-                        // text: `${Hyprland.toplevels.values[index].lastIpcObject."at"[0]},${Hyprland.toplevels.values[index].lastIpcObject.at[1]}`
-                        text: Hyprland.toplevels.values[index].lastIpcObject.title
-                        color: wal.color3
+                    Repeater {
+                        model:Hyprland.toplevels.values.length
+                        Text {
+                            text: Hyprland.toplevels.values[index].lastIpcObject.title
+                            color: wal.color3
+                        }
                     }
                 }
- 
-                }
-           }
+            }
         }
     }
     Timer {
@@ -47,8 +52,26 @@ PanelWindow {
         running: true
         repeat:true
         onTriggered: {
-            console.log(Hyprland.toplevels.values[0].lastIpcObject.at)
+            // console.log(Hyprland.toplevels.values[0].lastIpcObject.at)
             Hyprland.refreshToplevels()
         }
     }
+
+    Timer {
+        id: show_timer
+        interval: 3000
+        onTriggered: {
+            panel_left.visible = false
+        }
+    }
+
+    IpcHandler {
+        target: "workspace_view"
+
+        function workspace_view():void {
+            panel_left.visible = true
+            show_timer.restart()
+        }
+    }
+
 }
