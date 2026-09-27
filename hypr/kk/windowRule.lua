@@ -101,3 +101,9 @@ hl.window_rule({
     rounding=0,
     opacity="1.0"
 })
+hl.window_rule({
+    match = {
+        class = "clash-verge"
+    },
+    workspace = "10 silent"
+})

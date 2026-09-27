@@ -73,8 +73,8 @@ hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("hyprshot -m output"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("hyprshot -m window"))
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("hyprshot -m window -m region --clipboard-only"))
 
-hl.bind(mainMod .. " + F",         hl.dsp.exec_cmd("hyprctl dispatch fullscreenstate 1"))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("hyprctl dispatch fullscreen 0"))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen_state({internal=1,client=-1}))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("qs ipc call volume volume up"), { repeating = true })
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("qs ipc call volume volume down"),      { repeating = true })
