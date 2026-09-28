@@ -74,6 +74,7 @@ hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("hyprshot -m window"))
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("hyprshot -m window -m region --clipboard-only"))
 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen_state({internal=1,client=-1}))
+-- hl.bind(mainMod .. " + G", hl.dsp.window.fullscreen_state({internal=1,client=0}))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("qs ipc call volume volume up"), { repeating = true })
@@ -82,6 +83,9 @@ hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("qs ipc call volume volume mu
 
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("qs ipc call brightness brightness up"),   { repeating = true })
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("qs ipc call brightness brightness down"), { repeating = true })
+
+-- workspace view (toggle)
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("qs ipc call workspace_view workspace_view"))
 
 -- lock
 hl.bind(mainMod .. " + L",hl.dsp.exec_cmd("hyprlock"))
